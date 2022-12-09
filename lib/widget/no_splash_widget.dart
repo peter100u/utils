@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NoSplashWidget extends StatelessWidget {
+class UNoSplashWidget extends StatelessWidget {
   final Widget child;
 
-  const NoSplashWidget({
+  const UNoSplashWidget({
     super.key,
     required this.child,
   });
