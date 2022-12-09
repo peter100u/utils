@@ -7,42 +7,27 @@ class Toast {
   static late DateTime _startedTime; // 开启一个新toast的当前时间，用于对比是否已经展示了足够时间
   static late String _msg; // 提示内容
   static late int _showTime; // toast显示时间
-  static late Color _bgColor; // 背景颜色
-  static late Color _textColor; // 文本颜色
-  static late double _textSize; // 文字大小
   static late String _toastPosition; // 显示位置
-  static late double _pdHorizontal; // 左右边距
-  static late double _pdVertical; // 上下边距
   static void show({
     required String msg,
     int showTime = 2000,
-    Color bgColor = Colors.black,
-    Color textColor = Colors.white,
-    double textSize = 14.0,
     String position = 'center',
-    double pdHorizontal = 20.0,
-    double pdVertical = 10.0,
   }) async {
     _msg = msg;
     _startedTime = DateTime.now();
     _showTime = showTime;
-    _bgColor = bgColor;
-    _textColor = textColor;
-    _textSize = textSize;
     _toastPosition = position;
-    _pdHorizontal = pdHorizontal;
-    _pdVertical = pdVertical;
     //获取OverlayState
     OverlayState overlayState = Overlay.of(Get.overlayContext!);
     _showing = true;
     if (_overlayEntry == null) {
       _overlayEntry = OverlayEntry(
-          builder: (BuildContext context) => Positioned(
+          builder: (_) => Positioned(
                 //top值，可以改变这个值来改变toast在屏幕中的位置
-                top: _calToastPosition(context),
+                top: _calToastPosition(),
                 child: Container(
                     alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width,
+                    width: Get.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: AnimatedOpacity(
@@ -72,16 +57,13 @@ class Toast {
   //toast绘制
   static _buildToastWidget() {
     return Center(
-      child: Card(
-        color: _bgColor,
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(32), color: Get.theme.colorScheme.primaryContainer),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: _pdHorizontal, vertical: _pdVertical),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Text(
             _msg,
-            style: TextStyle(
-              fontSize: _textSize,
-              color: _textColor,
-            ),
+            style: Get.textTheme.titleSmall?.copyWith(color: Get.theme.colorScheme.onPrimaryContainer),
           ),
         ),
       ),
@@ -89,14 +71,14 @@ class Toast {
   }
 
 //  设置toast位置
-  static _calToastPosition(context) {
+  static _calToastPosition() {
     double backResult;
     if (_toastPosition == 'top') {
-      backResult = MediaQuery.of(context).size.height * 1 / 4;
+      backResult = Get.height * 1 / 4;
     } else if (_toastPosition == 'center') {
-      backResult = MediaQuery.of(context).size.height * 2 / 5;
+      backResult = Get.height * 2 / 5;
     } else {
-      backResult = MediaQuery.of(context).size.height * 3 / 4;
+      backResult = Get.height * 3 / 4;
     }
     return backResult;
   }
