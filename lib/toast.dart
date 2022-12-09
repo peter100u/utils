@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Toast {
-  static late OverlayEntry? _overlayEntry; // toast靠它加到屏幕上
+  static OverlayEntry? _overlayEntry; // toast靠它加到屏幕上
   static bool _showing = false; // toast是否正在showing
   static late DateTime _startedTime; // 开启一个新toast的当前时间，用于对比是否已经展示了足够时间
   static late String _msg; // 提示内容
