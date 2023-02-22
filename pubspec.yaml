@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   get: 4.6.5
-  url_launcher: 6.1.8
-  webview_flutter: 4.0.2
+  url_launcher: 6.1.9
+  webview_flutter: 4.0.4
   get_time_ago: 1.2.2
 
 dev_dependencies:
